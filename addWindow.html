@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add ToDo List Item</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+    body {
+        margin: 10px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <div>
+                <label>Enter Item</label>
+                <input type="text" id="item" autofocus>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Add Item</button>
+        </form>
+    </div>
+    <script>
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', submitForm);
+
+        function submitForm(e) {
+            e.preventDefault();
+            const item = document.querySelector("#item").value;
+            ipcRenderer.send('item:add', item);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <title>To Do List</title>
+    <style>
+        #title-bar {
+            -webkit-app-region: drag;
+        }
+
+        #title-bar-btns {
+            -webkit-app-region: no-drag;
+            position: fixed;
+            top: 0px;
+            right: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        (function () {
+            // Retrieve remote BrowserWindow
+            const { BrowserWindow } = require('electron').remote
+
+            function init() {
+                // Minimize task
+                document.getElementById("min-btn").addEventListener("click", (e) => {
+                    var window = BrowserWindow.getFocusedWindow();
+                    window.minimize();
+                });
+
+                // Maximize window
+                document.getElementById("max-btn").addEventListener("click", (e) => {
+                    var window = BrowserWindow.getFocusedWindow();
+                    if (window.isMaximized()) {
+                        window.unmaximize();
+                    } else {
+                        window.maximize();
+                    }
+                });
+
+                // Close app
+                document.getElementById("close-btn").addEventListener("click", (e) => {
+                    var window = BrowserWindow.getFocusedWindow();
+                    window.close();
+                });
+            };
+
+            document.onreadystatechange = () => {
+                if (document.readyState == "complete") {
+                    init();
+                }
+            };
+        })();
+    </script>
+    <nav style="line-height:46px; height: 46px;">
+        <div id="title-bar" class="row" style="background-color: #0b0c10; font-size: 20px">
+            <div class="col s6">
+                <b>
+                    <a>Bucket List</a>
+                </b>
+            </div>
+            <div class="col s6">
+                <div id="title-bar-btns" class="right-align" style="margin-right: 20px">
+                    <button id="min-btn" class="btn-floating grey" style="width:15px; height:15px"></button>
+                    <button id="max-btn" class="btn-floating orange" style="width:15px; height:15px" ></button>
+                    <button id="close-btn" class="btn-floating red" style="width:15px; height:15px" ></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <ul></ul>
+</body>
+
+
+<script>
+    const electron = require('electron');
+    const { ipcRenderer } = electron;
+    const ul = document.querySelector('ul');
+    const colors = [ 'CRIMSON', 'RED', 'FIREBRICK', 'DARKRED', 'DEEPPINK', 'MEDIUMVIOLETRED', 'PALEVIOLETRED', 'TOMATO', 'ORANGERED', 'DARKORANGE', 'ORANGE', 'GOLD', 'DARKKHAKI', 'VIOLET', 'ORCHID', 'FUCHSIA', 'MAGENTA', 'MEDIUMORCHID', 'MEDIUMPURPLE', 'REBECCAPURPLE', 'BLUEVIOLET', 'DARKVIOLET', 'DARKORCHID', 'DARKMAGENTA', 'PURPLE', 'INDIGO', 'SLATEBLUE', 'DARKSLATEBLUE', 'MEDIUMSLATEBLUE', 'GREENYELLOW', 'CHARTREUSE', 'LAWNGREEN', 'LIME', 'LIMEGREEN', 'SPRINGGREEN', 'MEDIUMSEAGREEN', 'SEAGREEN', 'FORESTGREEN', 'GREEN', 'DARKGREEN', 'YELLOWGREEN', 'OLIVEDRAB', 'OLIVE', 'DARKOLIVEGREEN', 'MEDIUMAQUAMARINE', 'DARKSEAGREEN', 'LIGHTSEAGREEN', 'DARKCYAN', 'TEAL', 'DARKTURQUOISE', 'CADETBLUE', 'STEELBLUE', 'MEDIUMSLATEBLUE', 'ROYALBLUE', 'BLUE', 'MEDIUMBLUE', 'DARKBLUE', 'NAVY', 'MIDNIGHTBLUE', 'SADDLEBROWN', 'SIENNA', 'BROWN', 'MAROON', 'GRAY', 'DIMGRAY', 'LIGHTSLATEGRAY', 'SLATEGRAY', 'DARKSLATEGRAY']
+    //const colors = '#0b0c10';
+    //catch add item
+    ipcRenderer.on('item:add', function (e, item) {
+        const li = document.createElement('li');
+        const div = document.createElement('div');
+        div.classList.add('circle');
+
+        div.classList.add('valign-wrapper');
+        //div.classList.add('teal');
+        //div.classList.add('lighten-2')
+        div.style.cssText = 'width: 40px; height:40px;justify-content: center;display: inline-flex;margin-right: 20px;';
+        div.textContent = ul.children.length + 1;
+        var color = colors[getRandomInt(0,67)];
+        div.style.backgroundColor = color;
+        //'SEAGREEN';
+        div.style.color = 'white';
+
+        li.appendChild(div);
+        li.style.fontSize = '19px';
+        li.style.backgroundColor = 'transparent';
+
+        li.className = 'collection-item';
+        const itemText = document.createTextNode(item);
+        li.appendChild(itemText);
+        //li.style.color = '#66FCF1';
+        ul.appendChild(li);
+        ul.className = 'collection';
+    })
+
+    //catch clear all element 
+    ipcRenderer.on('item:clear', function () {
+        ul.innerHTML = '';
+        ul.className = '';
+
+    })
+
+    //remove elements
+    ul.addEventListener('dblclick', removeItem);
+    function removeItem(e) {
+        e.target.remove();
+        if (ul.children.length == 0) {
+            ul.className = '';
+        }
+    }
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+</script>
+
+</html>
