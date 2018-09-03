@@ -83,26 +83,23 @@
     const { ipcRenderer } = electron;
     const ul = document.querySelector('ul');
     const colors = [ 'CRIMSON', 'RED', 'FIREBRICK', 'DARKRED', 'DEEPPINK', 'MEDIUMVIOLETRED', 'PALEVIOLETRED', 'TOMATO', 'ORANGERED', 'DARKORANGE', 'ORANGE', 'GOLD', 'DARKKHAKI', 'VIOLET', 'ORCHID', 'FUCHSIA', 'MAGENTA', 'MEDIUMORCHID', 'MEDIUMPURPLE', 'REBECCAPURPLE', 'BLUEVIOLET', 'DARKVIOLET', 'DARKORCHID', 'DARKMAGENTA', 'PURPLE', 'INDIGO', 'SLATEBLUE', 'DARKSLATEBLUE', 'MEDIUMSLATEBLUE', 'GREENYELLOW', 'CHARTREUSE', 'LAWNGREEN', 'LIME', 'LIMEGREEN', 'SPRINGGREEN', 'MEDIUMSEAGREEN', 'SEAGREEN', 'FORESTGREEN', 'GREEN', 'DARKGREEN', 'YELLOWGREEN', 'OLIVEDRAB', 'OLIVE', 'DARKOLIVEGREEN', 'MEDIUMAQUAMARINE', 'DARKSEAGREEN', 'LIGHTSEAGREEN', 'DARKCYAN', 'TEAL', 'DARKTURQUOISE', 'CADETBLUE', 'STEELBLUE', 'MEDIUMSLATEBLUE', 'ROYALBLUE', 'BLUE', 'MEDIUMBLUE', 'DARKBLUE', 'NAVY', 'MIDNIGHTBLUE', 'SADDLEBROWN', 'SIENNA', 'BROWN', 'MAROON', 'GRAY', 'DIMGRAY', 'LIGHTSLATEGRAY', 'SLATEGRAY', 'DARKSLATEGRAY']
-    //const colors = '#0b0c10';
+    
     //catch add item
     ipcRenderer.on('item:add', function (e, item) {
         const li = document.createElement('li');
         const div = document.createElement('div');
         
-        //div.classList.add();
         div.classList.add('valign-wrapper', 'circle');
         div.style.cssText = 'color: white; width: 30px; height:30px;justify-content: center;display: inline-flex;margin-right: 20px;';
         div.style.backgroundColor = colors[getRandomInt(0,67)];
         div.textContent = ul.children.length + 1;
-
-        li.appendChild(div);
+        
         li.style.fontSize = '14px';
         li.style.backgroundColor = 'transparent';
-
         li.className = 'collection-item';
-        const itemText = document.createTextNode(item);
-        li.appendChild(itemText);
-        //li.style.color = '#66FCF1';
+        li.appendChild(div);
+        li.appendChild(document.createTextNode(item));
+
         ul.appendChild(li);
         ul.className = 'collection';
     })
@@ -111,7 +108,6 @@
     ipcRenderer.on('item:clear', function () {
         ul.innerHTML = '';
         ul.className = '';
-
     })
 
     //remove elements
@@ -121,10 +117,20 @@
         if (ul.children.length == 0) {
             ul.className = '';
         }
+        updateToDoItemIndexes();    
     }
 
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function updateToDoItemIndexes(){
+
+        const ul = document.querySelector('ul');
+        for (var i = 0; i < ul.childNodes.length; i++){
+            var curChild = ul.childNodes[i];
+            curChild.firstChild.textContent = i+1;
+        }
     }
 </script>
 
