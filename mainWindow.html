@@ -59,7 +59,7 @@
         })();
     </script>
     <nav style="line-height:46px; height: 46px;">
-        <div id="title-bar" class="row" style="background-color: #0b0c10; font-size: 20px">
+        <div id="title-bar" class="row" style="background-color: TEAL; font-size: 20px">
             <div class="col s6">
                 <b>
                     <a>Bucket List</a>
@@ -88,20 +88,15 @@
     ipcRenderer.on('item:add', function (e, item) {
         const li = document.createElement('li');
         const div = document.createElement('div');
-        div.classList.add('circle');
-
-        div.classList.add('valign-wrapper');
-        //div.classList.add('teal');
-        //div.classList.add('lighten-2')
-        div.style.cssText = 'width: 40px; height:40px;justify-content: center;display: inline-flex;margin-right: 20px;';
+        
+        //div.classList.add();
+        div.classList.add('valign-wrapper', 'circle');
+        div.style.cssText = 'color: white; width: 30px; height:30px;justify-content: center;display: inline-flex;margin-right: 20px;';
+        div.style.backgroundColor = colors[getRandomInt(0,67)];
         div.textContent = ul.children.length + 1;
-        var color = colors[getRandomInt(0,67)];
-        div.style.backgroundColor = color;
-        //'SEAGREEN';
-        div.style.color = 'white';
 
         li.appendChild(div);
-        li.style.fontSize = '19px';
+        li.style.fontSize = '14px';
         li.style.backgroundColor = 'transparent';
 
         li.className = 'collection-item';
