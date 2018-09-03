@@ -5,7 +5,7 @@
     function init() {
     
         // Close app
-        document.getElementById("close-btn1").addEventListener("click", (e) => {
+        document.getElementById("add-close-btn").addEventListener("click", (e) => {
             var window = BrowserWindow.getFocusedWindow();
             window.close();
         });

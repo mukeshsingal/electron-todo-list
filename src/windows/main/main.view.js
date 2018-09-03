@@ -8,14 +8,12 @@ ipcRenderer.on('item:add', function (e, item) {
     const li = document.createElement('li');
     const div = document.createElement('div');
 
-    div.classList.add('valign-wrapper', 'circle');
-    div.style.cssText = 'color: white; width: 30px; height:30px;justify-content: center;display: inline-flex;margin-right: 20px;';
+    div.classList.add('valign-wrapper', 'circle', 'to-do-container');
+
     div.style.backgroundColor = colors[getRandomInt(0, 67)];
     div.textContent = ul.children.length + 1;
 
-    li.style.fontSize = '14px';
-    li.style.backgroundColor = 'transparent';
-    li.className = 'collection-item';
+    li.classList.add('collection-item', 'to-do-item');
     li.appendChild(div);
     li.appendChild(document.createTextNode(item));
 

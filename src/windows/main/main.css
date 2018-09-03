@@ -8,3 +8,21 @@
     top: 0px;
     right: 6px;
 }
+
+.to-do-container{
+    color: white; 
+    width: 30px; 
+    height:30px; 
+    justify-content: center;
+    display: inline-flex;
+    margin-right: 20px;
+}
+
+.to-do-item{
+    font-size: 14px;
+    background-color: transparent;
+}
+div#title-bar-btns button {
+    width:15px; 
+    height:15px
+}

@@ -2,13 +2,25 @@ form {
     margin: 10px;
 }
 
-#title-bar1 {
+#add-title-bar {
     -webkit-app-region: drag;
+    background-color: TEAL; 
+    font-size: 20px;
 }
 
-#title-bar-btns1 {
+#add-title-bar-btns {
     -webkit-app-region: no-drag;
     position: fixed;
     top: 0px;
     right: 6px;
+    margin-right: 20px;
 }
+
+nav{
+    line-height:46px; height: 46px;
+}
+
+#add-close-btn{
+    width:15px; height:15px
+}
+
