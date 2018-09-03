@@ -1,0 +1,14 @@
+form {
+    margin: 10px;
+}
+
+#title-bar1 {
+    -webkit-app-region: drag;
+}
+
+#title-bar-btns1 {
+    -webkit-app-region: no-drag;
+    position: fixed;
+    top: 0px;
+    right: 6px;
+}

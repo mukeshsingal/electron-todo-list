@@ -7,17 +7,15 @@ const {app, BrowserWindow, Menu, ipcMain} = electron;
 let mainWindow; 
 let addWindow
 
-//Listen for app to be ready.
 
 //process.env.NODE_ENV = 'production';
-
 app.on('ready', function(){
     //Create new window 
     mainWindow = new BrowserWindow({frame:false}); //Pass empty object as we dont need window configuration 
     // Load html into window 
 
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'mainWindow.html'),
+        pathname: path.join(__dirname, 'src/windows/main/main.html'),
         protocol: 'file:',
         slashes: true
     }));
@@ -34,7 +32,6 @@ app.on('ready', function(){
 })
 
 //handle createAddWindows
-
 function createAddWindow(){
     addWindow = new BrowserWindow({
         width: 500,
@@ -45,7 +42,7 @@ function createAddWindow(){
     // Load html into window 
 
     addWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'addWindow.html'),
+        pathname: path.join(__dirname, 'src/windows/add-task/addtask.html'),
         protocol: 'file:',
         slashes: true
     }));
@@ -58,7 +55,6 @@ function createAddWindow(){
 
 //catch item:add
 ipcMain.on('item:add', function(e, item){
-    console.log(item);
     mainWindow.webContents.send('item:add', item);
     addWindow.close();
 })
@@ -99,7 +95,6 @@ if(process.platform == 'darwin') {
 }
 
 //add develop tools item if not in production 
-
 if(process.env.NODE_ENV !== 'production'){
     mainMenuTemplate.push({
         label:  'Develop Tools',

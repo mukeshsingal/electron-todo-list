@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add ToDo List Item</title>
+    <!--Import Google Icon Font-->
+    
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="../../../node_modules/materialize-css/dist/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="addtask.css">
+
+</head>
+
+<body>
+    <nav style="line-height:46px; height: 46px;">
+        <div id="title-bar1" class="row" style="background-color: TEAL; font-size: 20px">
+            <div class="col s6">
+                <a>Add To-Do</a>
+            </div>
+            <div class="col s6">
+                <div id="title-bar-btns1" class="right-align" style="margin-right: 20px">
+                    <button id="close-btn1" class="btn-floating red" style="width:15px; height:15px"></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <form>
+            <div>
+                <label>Enter Description</label>
+                <input type="text" id="item" autofocus>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit">Add Item</button>
+        </form>
+    </div>
+</body>
+<script src="./addtask.view.js"></script>
+</html>
